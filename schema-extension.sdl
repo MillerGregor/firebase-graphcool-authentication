@@ -1,0 +1,7 @@
+type CustomTokenPayload {
+  token: String!
+}
+
+extend type Mutation {
+  authenticateFirebaseUser(firebaseIdToken: String!): CustomTokenPayload
+}

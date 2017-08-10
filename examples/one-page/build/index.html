@@ -1,0 +1,57 @@
+<html title="Firebase/Graphcool Authentication">
+  <head>
+    <link rel="stylesheet" type="text/css" href="dark-theme.css">
+  </head>
+  <body>
+    <script src="bundle.js"></script>
+    <div id="container">
+      <span>Authenticate with:</span>
+      <button id="authenticateWithGoogle">Google</button>
+      <button id="authenticateWithGitHub">GitHub</button>
+      <div id="userInfoContainer">
+        <div class="row">
+          <span>Providers: </span>
+          <span class="userInfo" id="firebaseUserProvider"></span>
+        </div>
+        <div class="row">
+          <span>Name: </span>
+          <span class="userInfo" type="text" id="firebaseUserName"></span>
+        </div>
+        <div class="row">
+          <span>Email: </span>
+          <span class="userInfo" type="text" id="firebaseUserEmail"></span>
+        </div>
+        <div class="row">
+          <span>Email Verified:</span>
+          <span class="userInfo" type="text" id="firebaseUserEmailVerified"></span>
+        </div>
+        <div class="row">
+          <span>UID: </span>
+          <span class="userInfo" type="text" id="firebaseUserId"></span>
+        </div>
+        <image id="firebaseUserAvatar">
+      </div>
+      <button id="logout">Log Out</button>
+      <br>
+      <button id="getFirebaseIdToken">Get Firebase IdToken</button>
+      <br>
+      <textarea class="textArea" id="firebaseIdTokenTextArea"></textarea>
+      <br>
+      <button id="testPostFunctionDebug">Get Graphcool IdToken - Local POST</button>
+      <div class="centered">or</div>
+      <button id="testGQL">Get Graphcool IdToken - Production GraphQL</button>
+      <br>
+      <textarea class="textArea" id="graphcoolIdTokenTextArea"></textarea>
+      <button id="runUserQuery">Run User Query</button>
+      <div id="userInfoContainer">
+        <div class="row">
+          <span>Name: </span>
+          <span class="userInfo" type="text" id="queriedGraphcoolUserId"></span>
+        </div>
+        <div class="row">
+          <span>Email: </span>
+          <span class="userInfo" type="text" id="queriedFirebaseUserId"></span>
+        </div>
+    </div>
+  </body>
+</html>
