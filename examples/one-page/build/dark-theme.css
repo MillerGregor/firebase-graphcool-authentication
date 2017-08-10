@@ -92,3 +92,10 @@ button#testGQL {
 button#authenticateWithGoogle, button#authenticateWithGitHub {
   width: unset;
 }
+textarea#graphcoolIdTokenTextArea {
+	height: 100px;
+}
+
+textarea#queriedGraphcoolUserTextArea {
+  height: 80px;
+}

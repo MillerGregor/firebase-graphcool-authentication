@@ -132,7 +132,7 @@ function getGraphcoolTokenViaGQL() {
       } else if (res.error) {
         populateGraphcoolIdToken(res.error);
       } else {
-        populateGraphcoolIdToken(res.data.token);
+        populateGraphcoolIdToken(res.data.authenticateFirebaseUser.token);
       }
     })
     .catch(err => {
@@ -153,7 +153,7 @@ function runUserQuery() {
         if (!request.options.headers) {
           request.options.headers = {};
         }
-        request.options.headers["authorization"] = graphcoolIdToken;
+        request.options.headers["authorization"] = `Bearer ${graphcoolIdToken}`;
         console.log(request);
         next();
       }
@@ -180,7 +180,7 @@ function runUserQuery() {
   apolloClient
     .query({ query: userQuery })
     .then(data => {
-      populateQueriedUser(data);
+      populateQueriedUser(JSON.stringify(data));
     })
     .catch(err => {
       populateQueriedUser(err);
@@ -224,9 +224,7 @@ function populateGraphcoolIdToken(token) {
 }
 
 function populateQueriedUser(response) {
-  document.getElementById("queriedGraphcoolUserId").innerText = JSON.stringify(
-    response
-  );
+  document.getElementById("queriedGraphcoolUserTextArea").value = response;
 }
 
 window.onload = () => {

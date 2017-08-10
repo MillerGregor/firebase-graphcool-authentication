@@ -59,8 +59,7 @@ export const AuthenticateFirebaseToken = async (event: any) => {
       graphcool
     );
     return lambdaProxy.response(200, null, {
-      data: { token: graphcoolToken },
-      error: null
+      data: { token: graphcoolToken }
     });
   } catch (error) {
     return lambdaProxy.response(503, null, {
