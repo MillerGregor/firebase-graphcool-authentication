@@ -1,4 +1,4 @@
-# firebase-authentication
+# firebase-graphcool-authentication
 
 Create Firebase users and sign in with Schema Extensions and Graphcool Functions
 
