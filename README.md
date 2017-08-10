@@ -1,12 +1,13 @@
 # firebase-authentication
 
-Create Firebase users and sign in with Schema Extensions and Graphcool Functions ⚡️
+Create Firebase users and sign in with Schema Extensions and Graphcool Functions
 
 > Note: Schema Extensions are currently only available in the Beta Program.
 
 
 ## Project Setup
 
+This example uses Amazon Web Services Lambda and API Gateway.  The function's handler is specific to Lambda events but could be easily changed for use with another provider.
 
 ### Graphcool Setup 1
 
@@ -100,6 +101,7 @@ Start local server
 ```
 yarn run start
 ```
+Point your browser to <http://localhost:8080>
 
 ## Authentication flow in the example app
 
@@ -112,15 +114,20 @@ yarn run start
         1. A Graphcool Id Token in provided using a local mock serverless debug instance
     1. Click the "Get Graphcool IdToken - AWS graphQL" button
         1. Your app calls the Graphcool mutation `authenticateFirebaseUser(firebaseIdToken: String!)`
-1. Note that clicking a different provider while already authenticated will link the second social account
+1. Note that using another provider while already authenticated will link each subsequent social account
 1. If no user exists yet that corresponds to the passed `firebaseIdToken`, a new `User` node will be created
 1. The Graphcool Id token can be used to authenticate further requests to Graphcool by inserting it in each http request's `Authorization` header
 
 ![one-page demo app](demo.png)
 
+- The tokens displayed by the example app can be decoded online at [jwt.io](http://jwt.io).
+- The tokens can be edited, invalidating them, to simulate a bad token.
+
+
 
 ## Real Application
 
+### Graphcool Mutation
 This mutation will authenticate a user:
 
 ```graphql
@@ -133,3 +140,8 @@ mutation {
 ```
 
 You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Firebase token will not add a new user.
+
+### Token management
+The Firebase web sdk keeps a user signed in indefinitely by default.  But only signed in to Firebase.  Firebase will provide a valid Id Token any time an app calls `auth().currentUser.getIdToken()`.
+
+The Graphcool token must be managed by a production application, especially regarding expiration.  At the time this was written, Graphcool Id Tokens are valid for one month.
