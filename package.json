@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "debug": "yarn run build && set SLS_DEBUG=* && serverless offline -s dev",
-    "watch": "./node_modules/.bin/webpack --watch",
+    "debug": "set SLS_DEBUG=* && serverless offline -s dev",
     "deploy-dev": "serverless deploy --funtion firebase-graphcool-authentication --stage dev --region us-east-1"  **** change for your region; copy to add another stage
   },
   "dependencies": {

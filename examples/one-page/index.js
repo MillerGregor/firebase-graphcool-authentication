@@ -10,8 +10,8 @@ require("isomorphic-fetch");
 // https://firebase.google.com/docs/web/setup
 //
 const firebaseConfig = {
-  apiKey: "*********";
-  authDomain: "*********";
+  apiKey: "*********",
+  authDomain: "*********"
 };
 
 const debugFunctionEndpoint = "http://127.0.0.1:3000/authenticate";
@@ -173,15 +173,6 @@ function runUserQuery() {
     query {
       user {
         id
-      }
-    }
-  `;
-  const feedQuery = gql`
-    query FeedQuery {
-      allPosts(orderBy: createdAt_DESC) {
-        id
-        imageUrl
-        description
       }
     }
   `;
