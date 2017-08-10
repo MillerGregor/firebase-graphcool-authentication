@@ -116,7 +116,7 @@ Point your browser to <http://localhost:8080>
         1. Your app calls the Graphcool mutation `authenticateFirebaseUser(firebaseIdToken: String!)`
 1. Note that using another provider while already authenticated will link each subsequent social account
 1. If no user exists yet that corresponds to the passed `firebaseIdToken`, a new `User` node will be created
-1. The Graphcool Id token can be used to authenticate further requests to Graphcool by inserting it in each http request's `Authorization` header
+1. The Graphcool Id token can be used to authenticate further requests to Graphcool by inserting it in each http request's `authorization` header
 
 ![one-page demo app](demo.png)
 
