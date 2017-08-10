@@ -15,7 +15,6 @@ const apiType = "simple/v1";
 export const AuthenticateFirebaseToken = async (event: any) => {
   if (!event.body) {
     return lambdaProxy.response(400, null, {
-      data: null,
       error: "No data found for event.body"
     });
   }
@@ -23,7 +22,6 @@ export const AuthenticateFirebaseToken = async (event: any) => {
   const payload = JSON.parse(event.body);
   if (!payload.data || !payload.data.firebaseIdToken) {
     return lambdaProxy.response(400, null, {
-      data: null,
       error: "No data found for event.body.data.firebaseIdToken"
     });
   }
@@ -40,7 +38,6 @@ export const AuthenticateFirebaseToken = async (event: any) => {
     firebaseUserId = decodedToken.uid;
   } catch (error) {
     return lambdaProxy.response(401, null, {
-      data: null,
       error: `"Could not verify id token with Firebase ${error}"`
     });
   }
@@ -63,7 +60,6 @@ export const AuthenticateFirebaseToken = async (event: any) => {
     });
   } catch (error) {
     return lambdaProxy.response(503, null, {
-      data: null,
       error: `"Error communicating with GraphCool: ${error}"`
     });
   }
