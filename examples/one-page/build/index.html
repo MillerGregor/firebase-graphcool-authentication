@@ -8,8 +8,8 @@
   <script src="bundle.js"></script>
   <div id="container">
     <span>Authenticate with:</span>
-    <button id="authenticateWithGoogle">Google</button>
-    <button id="authenticateWithGitHub">GitHub</button>
+    <button class="provider" id="authenticateWithGoogle">Google</button>
+    <button class="provider" id="authenticateWithGitHub">GitHub</button>
     <div id="userInfoContainer">
       <div class="row">
         <span>Providers: </span>
@@ -44,6 +44,10 @@
     <button id="testGQL">Get Graphcool IdToken - AWS graphQL</button>
     <br>
     <textarea class="textArea" id="graphcoolIdTokenTextArea"></textarea>
+    <div class="row">
+      <span>exp: </span>
+      <span class="userInfo" type="text" id="graphcoolTokenExp"></span>
+    </div>
     <button id="runUserQuery">Run User Query</button>
     <textarea class="textArea" id="queriedGraphcoolUserTextArea"></textarea>
 </body>

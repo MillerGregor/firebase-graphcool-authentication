@@ -134,12 +134,12 @@ This mutation will authenticate a user:
 mutation {
   # replace __FIREBASE_TOKEN__!
   authenticateFirebaseUser(firebaseIdToken: "__FIREBASE_TOKEN__") {
-    token
+    wrappedToken
   }
 }
 ```
 
-You should see that a new user has been created. The returned token can be used to authenticate requests to your Graphcool API as that user. Note that running the mutation again with the same Firebase token will not add a new user.
+You should see that a new user has been created. The returned object (wrappedToken) contains a token (token) which can be used to authenticate requests to your Graphcool API as that user.  The expiration date (exp) is also included.  Note that running the mutation again with the same Firebase token will not add a new user.
 
 ### Token management
 The Firebase web sdk keeps a user signed in indefinitely by default.  But only signed in to Firebase.  Firebase will provide a valid Id Token any time an app calls `auth().currentUser.getIdToken()`.

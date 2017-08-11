@@ -55,6 +55,7 @@ body, textarea, input, button {
 	top:  0px;
 	position: absolute;
 	border: 1px solid;
+	border-color: #222222;
 }
 
 #container {
@@ -65,12 +66,13 @@ body, textarea, input, button {
 }
 
 button {
-	display: inline-flex;
-  border: 1px solid;
-  background-color: #303030;
-  border-color: #050505;
-  margin-bottom: 10px;
-  width: 100%;
+	display: inline-block;
+	border: 0;
+	background-color: #222222;
+	margin-bottom: 10px;
+	padding: 5px;
+	width: 100%;
+	/* text-align: center; */
 }
 
 button#testPostFunctionDebug {
@@ -89,13 +91,21 @@ button#testGQL {
   text-align: center;
 }
 
-button#authenticateWithGoogle, button#authenticateWithGitHub {
+button.provider {
   width: unset;
+  padding-left: 15px;
+  padding-right: 15px;
 }
+
 textarea#graphcoolIdTokenTextArea {
 	height: 100px;
+	margin-bottom: 0px;
 }
 
 textarea#queriedGraphcoolUserTextArea {
   height: 80px;
+}
+
+button#runUserQuery {
+  margin-top: 10px;
 }

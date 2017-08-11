@@ -24,6 +24,7 @@ package:
     - yarn-error.log
     - env-*.yml
     - webpack.config.js
+    - schema-extension.sdl
   
 functions:
   firebaseAuthentication:

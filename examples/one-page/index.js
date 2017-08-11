@@ -80,6 +80,7 @@ function getFirebaseIdToken() {
 
 function getGraphcoolTokenViaPOST(endPoint) {
   populateGraphcoolIdToken("loading...");
+  populateGraphcoolExp();
   const firebaseIdToken = _.escape(
     document.getElementById("firebaseIdTokenTextArea").value
   );
@@ -97,14 +98,26 @@ function getGraphcoolTokenViaPOST(endPoint) {
     })
   };
 
+  // all the thens to demonstrate unpacking of the object
   fetch(endPoint, reqInit)
-    .then(function(res) {
+    .then(res => {
       return res.json();
     })
-    .then(function(json) {
-      populateGraphcoolIdToken(json.data.token);
+    .then(json => {
+      console.log(json);
+      return json.data;
     })
-    .catch(function(error) {
+    .then(data => {
+      console.log(data);
+      return JSON.parse(data.wrappedToken);
+    })
+    .then(wrappedToken => {
+      console.log(wrappedToken);
+      populateGraphcoolIdToken(wrappedToken.token);
+      populateGraphcoolExp(wrappedToken.exp);
+      return;
+    })
+    .catch(error => {
       populateGraphcoolIdToken(error);
     });
 }
@@ -118,7 +131,7 @@ function getGraphcoolTokenViaGQL() {
   const authenticateFirebaseUser = `
     mutation ($firebaseIdToken: String!) {
       authenticateFirebaseUser(firebaseIdToken: $firebaseIdToken) {
-        token
+        wrappedToken
       }
     }
   `;
@@ -132,7 +145,9 @@ function getGraphcoolTokenViaGQL() {
       } else if (res.error) {
         populateGraphcoolIdToken(res.error);
       } else {
-        populateGraphcoolIdToken(res.data.authenticateFirebaseUser.token);
+        const wrappedToken = JSON.parse(res.data.authenticateFirebaseUser.wrappedToken);
+        populateGraphcoolIdToken(wrappedToken.token);
+        populateGraphcoolExp(wrappedToken.exp);
       }
     })
     .catch(err => {
@@ -149,20 +164,10 @@ function runUserQuery() {
   networkInterface.use([
     {
       applyMiddleware(request, next) {
-        console.log(request);
         if (!request.options.headers) {
           request.options.headers = {};
         }
         request.options.headers["authorization"] = `Bearer ${graphcoolIdToken}`;
-        console.log(request);
-        next();
-      }
-    }
-  ]);
-  networkInterface.useAfter([
-    {
-      applyAfterware({ response }, next) {
-        console.log(response);
         next();
       }
     }
@@ -221,6 +226,17 @@ function populateFirebaseIdToken(token) {
 
 function populateGraphcoolIdToken(token) {
   document.getElementById("graphcoolIdTokenTextArea").value = token;
+}
+
+function populateGraphcoolExp(exp) {
+  if (exp) {
+    var myDate = new Date( exp *1000);
+    // document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
+    document.getElementById("graphcoolTokenExp").innerText = myDate.toLocaleString();
+    }
+    else {
+      document.getElementById("graphcoolTokenExp").innerText = "";
+    }
 }
 
 function populateQueriedUser(response) {

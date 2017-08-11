@@ -6,6 +6,7 @@
 
 import * as admin from "firebase-admin";
 import Graphcool, { fromEvent } from "graphcool-lib";
+const jwt = require("jsonwebtoken");
 const lambdaProxy = require("lambda-proxy-response");
 
 const pat = process.env.graphcoolPAT;
@@ -55,8 +56,14 @@ export const AuthenticateFirebaseToken = async (event: any) => {
       graphcoolUserId,
       graphcool
     );
+
+    const decoded = jwt.decode(graphcoolToken);
+    const expiration = decoded.exp;
+
     return lambdaProxy.response(200, null, {
-      data: { token: graphcoolToken }
+      data: {
+        wrappedToken: JSON.stringify({ token: graphcoolToken, exp: expiration })
+      }
     });
   } catch (error) {
     return lambdaProxy.response(503, null, {
