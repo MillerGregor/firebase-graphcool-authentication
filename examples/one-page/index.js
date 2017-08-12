@@ -208,7 +208,7 @@ function populateFirebaseUser(user) {
   document.getElementById("firebaseUserAvatar").src = user
     ? user.photoURL
     : "//:0";
-  if (user.email) {
+  if (user && user.email) {
     firebase.auth().fetchProvidersForEmail(user.email).then(arrProviders => {
       var providersText = "".concat(
         ...arrProviders.map(provider => provider.concat(" "))
