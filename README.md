@@ -139,7 +139,8 @@ mutation {
 }
 ```
 
-You should see that a new user has been created. The returned object (wrappedToken) contains a token (token) which can be used to authenticate requests to your Graphcool API as that user.  The expiration date (exp) is also included.  Note that running the mutation again with the same Firebase token will not add a new user.
+You should see that a new user has been created. The returned object (wrappedToken) contains a token (token) which can be used to authenticate requests to your Graphcool API as that user.  The expiration date (exp), and user Ids (firebaseUserId, graphcoolUserId) are also included.  These are included for convenience; your authentication process should not rely on the accuracy of these values.  Meaning: it's safe to fail authentication if these values are not as expected, but not safe to consider a successful authentication; only the token can do that.  
+Note that running the mutation again for the same Firebase user will simply return a new token for the existing Graphcool user.
 
 ### Token management
 The Firebase web sdk keeps a user signed in indefinitely by default.  But only signed in to Firebase.  Firebase will provide a valid Id Token any time an app calls `auth().currentUser.getIdToken()`.
