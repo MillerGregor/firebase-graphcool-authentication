@@ -58,11 +58,16 @@ export const AuthenticateFirebaseToken = async (event: any) => {
     );
 
     const decoded = jwt.decode(graphcoolToken);
-    const expiration = decoded.exp;
+    const exp = decoded.exp;
 
     return lambdaProxy.response(200, null, {
       data: {
-        wrappedToken: JSON.stringify({ token: graphcoolToken, exp: expiration })
+        wrappedToken: JSON.stringify({
+          token: graphcoolToken,
+          exp,
+          firebaseUserId,
+          graphcoolUserId
+        })
       }
     });
   } catch (error) {
