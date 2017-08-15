@@ -4,7 +4,7 @@
 // https://gist.github.com/jhalborg/5042201f558034243376cffb55111d85
 // Thanks, @jhalborg
 
-import * as admin from "firebase-admin";
+import { auth } from "firebase-admin";
 import Graphcool, { fromEvent } from "graphcool-lib";
 const jwt = require("jsonwebtoken");
 const lambdaProxy = require("lambda-proxy-response");
@@ -35,7 +35,7 @@ export const AuthenticateFirebaseToken = async (event: any) => {
 
   // Verify the token with Firebase SDK
   try {
-    const decodedToken = await admin.auth().verifyIdToken(firebaseIdToken);
+    const decodedToken = await auth().verifyIdToken(firebaseIdToken);
     firebaseUserId = decodedToken.uid;
   } catch (error) {
     return lambdaProxy.response(401, null, {
